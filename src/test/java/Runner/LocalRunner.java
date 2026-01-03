@@ -12,7 +12,7 @@ import io.cucumber.testng.CucumberOptions;
                 //"devUser.json:target/cucumber.devUser.json"
         },
         monochrome = true,
-        tags = "@sai"
+        tags = "@dip2"
 )
 public class LocalRunner extends AbstractTestNGCucumberTests {
     // No code needed here

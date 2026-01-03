@@ -3,13 +3,17 @@ package stepDefinition;
 import hook.hooks;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.When;
 import pageObject.homePage;
+import utils.getUserDataFromPropertyFile;
 import utils.jsonReaderClass;
 
 import java.io.IOException;
+import java.util.Properties;
 
 public class homePageStepDef {
-    homePage home;
+    public static homePage home;
+    static Properties prop;
     @Given("^the user lands on halfords homepage$")
     public void userlogsintohomepage()
     {
@@ -43,12 +47,48 @@ public class homePageStepDef {
     public void userEnterEmailAndPasswordInTheLogPopUp() throws IOException {
         System.out.println(jsonReaderClass.getUserData().getUsername());
         System.out.println(jsonReaderClass.getUserData().getPassword());
+        prop= getUserDataFromPropertyFile.loadProperties();
+        System.out.println(prop.getProperty("hwd"));
+        System.out.println(prop.getProperty("cnc"));
+        System.out.println(prop.getProperty("postcode"));
+        System.out.println(prop.getProperty("vrn"));
+
+
         home.enterEmail(jsonReaderClass.getUserData().getUsername());
         home.enterPassword(jsonReaderClass.getUserData().getPassword());
     }
 
-    @And("user click on log in button")
+    @And("^user click on log in button$")
     public void userClickOnLogInButton() {
         home.clickOnLogin();
     }
+
+    @And("^the user searches for the sku$")
+    public void theUserSearchesForTheSku() throws IOException {
+        prop= getUserDataFromPropertyFile.loadProperties();
+        String sku=prop.getProperty("cnc");
+
+        home.searchSku(sku);
+
+    }
+
+
+
+    @And("the user waits for the page to load")
+    public void theUserWaitsForThePageToLoad() {
+        home.waitForPageLoad(50);
+
+    }
+
+    @And("^the user enter postcode (.*) on pdp$")
+    public void theUserEnterPostcodeOnPdp(String p1) {
+        home.enterPostCode(p1);
+    }
+
+    @When("^the click on choose a collection day button$")
+    public void theClickOnChooseACollectionDayButton() {
+        home.clickOnChooseACollectionDayButton();
+
+    }
+
 }
