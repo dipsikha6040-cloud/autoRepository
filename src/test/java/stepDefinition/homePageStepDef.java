@@ -1,6 +1,7 @@
 package stepDefinition;
 
 import hook.hooks;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
@@ -9,15 +10,22 @@ import utils.getUserDataFromPropertyFile;
 import utils.jsonReaderClass;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 public class homePageStepDef {
-    public static homePage home;
-    static Properties prop;
+    private final homePage home;
+    private  Properties prop;
+    public homePageStepDef(homePage home)
+    {
+        this.home=home;//this-->refers to current instance variable
+    }
+
     @Given("^the user lands on halfords homepage$")
     public void userlogsintohomepage()
     {
-      home=new homePage(hooks.driver);// passing driver instance
+      home.openingUrl();
     }
 
     @And("^user enter vrn postcode on motoring page$")
@@ -91,4 +99,49 @@ public class homePageStepDef {
 
     }
 
+
+    @And("^the user navigates the hirearchy menu$")
+    public void theUserNavigatesTheHirearchyMenu(DataTable dataTable) {
+        Map<String, String> hierarchy = dataTable.asMaps().get(0);
+        String tier1 = hierarchy.get("Tier1");
+        String tier2 = hierarchy.get("Tier2");
+        String tier3 = hierarchy.get("Tier3");
+        String tier4 = hierarchy.get("Tier4");
+        if (isEmpty(tier1)) {
+            throw new IllegalArgumentException("Tier1 is mandatory");
+        }
+        if (isEmpty(tier2)) {
+            System.out.println(tier1);
+//            clickMenu(tier1);
+        }
+        else if (isEmpty(tier3)) {
+//            hoverMenu(tier1);
+//            clickMenu(tier2);
+            System.out.println(tier1);
+            System.out.println(tier2);
+        }
+        else if (isEmpty(tier4)) {
+//            hoverMenu(tier1);
+//            hoverMenu(tier2);
+//            clickMenu(tier3);
+            System.out.println(tier1);
+            System.out.println(tier2);
+            System.out.println(tier3);
+        }
+        else {
+//            hoverMenu(tier1);
+//            hoverMenu(tier2);
+//            hoverMenu(tier3);
+//            clickMenu(tier4);
+            System.out.println(tier1);
+            System.out.println(tier2);
+            System.out.println(tier3);
+            System.out.println(tier4);
+        }
+    }
+    private boolean isEmpty(String value) {
+        return value == null || value.trim().isEmpty();
+    }
+
+}
 }

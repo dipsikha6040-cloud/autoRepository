@@ -1,4 +1,5 @@
 Feature:Automation halfords com in my pc
+  Background: Given the user lands on halfords homepage
   @sai
   Scenario: check quick book
     #Given the user lands on halfords homepage
@@ -30,8 +31,27 @@ Feature:Automation halfords com in my pc
     And the user waits for the page to load
     And the user enter postcode B90 1AD on pdp
     When the click on choose a collection day button
-    And the user selects a morning timeslot from the calender
+    And the user selects a afternoon timeslot from the calender
     Then the user click on book selected appointment
+
+
+  @navigationScenario @dip3
+
+ Scenario Outline: User navigates to the required navigation menu path
+    Given the user lands on halfords homepage
+    And the user click on accept all cookie
+    And the user navigates the hirearchy menu
+      | Tier1       | Tier2       | Tier3       | Tier4        |
+      | <Tier1Menu> | <Tier2Menu> | <Tier3Menu> | <<Tier4Menu> |
+
+    Examples:
+      | Tier1Menu | Tier2Menu         | Tier3Menu | Tier4Menu |
+      | Motoring  | Motoring Products | Bulbs     | H1 Bulbs  |
+      | Motoring  | Motoring Products | Bulbs     |           |
+      | Motoring  | Motoring Products |           |           |
+      | Motoring  |                   |           |           |
+
+
 
 
 

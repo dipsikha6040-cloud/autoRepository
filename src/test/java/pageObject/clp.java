@@ -7,10 +7,13 @@ import org.openqa.selenium.support.FindBy;
 import java.util.List;
 
 public class clp extends baseClass{
-    public clp(WebDriver driver)
+    public clp()
     {
-        super(driver);
+        super();//difference between super and super(),
+        //super-->it is a reversed keyword in java which is used to refer variable in a parent class
+        //super()-->used to call the constructor of a parent class
     }
+
 
     @FindBy(css = "[data-testid='product-tile'] a.halfords-link-standard")
     private List<WebElement> selectFirstProduct;

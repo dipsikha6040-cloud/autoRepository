@@ -6,7 +6,13 @@ import io.cucumber.java.en.Then;
 import pageObject.pdp;
 
 public class pdpStefDef {
-    pdp pdpPage=new pdp(hooks.driver);
+
+
+    private final pdp pdpPage;
+    public pdpStefDef(pdp pdpPage)
+    {
+        this.pdpPage=pdpPage;
+    }
 
     @And("^user click on (.*) on pdp$")
     public void userClickOnDontBuildMyBikeOnPdp(String fitting_position) throws InterruptedException {

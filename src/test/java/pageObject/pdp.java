@@ -7,9 +7,9 @@ import org.openqa.selenium.support.FindBy;
 import java.util.List;
 
 public class pdp extends baseClass {
-    public pdp(WebDriver driver)
+    public pdp()
     {
-        super(driver);
+        super();
     }
     @FindBy(css = ".f-radio-secondary__item .f-radio-secondary__label .f-radio-secondary__text")
     private List<WebElement> WouldYouLikeItBuilt;
@@ -33,7 +33,7 @@ public class pdp extends baseClass {
     private WebElement eveningTimeSlotList;
 
     public void clickOnWouldYouLikeItBuilt(String fitting) {
-
+        waitForPageLoad(10);
         scrollIntoView(WouldYouLikeItBuilt.get(0));
         WebElement radioButton = WouldYouLikeItBuilt.stream()
                 .filter(e -> e.getText().trim().equalsIgnoreCase(fitting))
@@ -42,6 +42,7 @@ public class pdp extends baseClass {
 
     }
 
+
     public void bookSelectedAppointment() {
         clickUsingJS(bookSelectedAppointmentCta);
     }
@@ -49,15 +50,15 @@ public class pdp extends baseClass {
     public void selectTimeSlot(String userInput) {
       if(morningTimeSlot.getText().toLowerCase().contains(userInput))
       {
-          morningTimeSlotsList.click();
+          clickUsingJS(morningTimeSlotsList);
       }
       else if(afternoonTimeSlot.getText().toLowerCase().contains(userInput))
       {
-         afternoonTimeSlotList.click();
+         clickUsingJS(afternoonTimeSlotList);
       }
       else
       {
-          eveningTimeSlotList.click();
+          clickUsingJS(eveningTimeSlotList);
       }
     }
 }

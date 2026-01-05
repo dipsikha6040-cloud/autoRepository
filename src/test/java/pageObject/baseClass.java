@@ -11,6 +11,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.DriverManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,16 +19,14 @@ import java.time.Duration;
 
 public class baseClass {
 
-    //WebDriver driver= hooks.driver;
-    protected WebDriver driver;
 
-    public baseClass(WebDriver driver) {
-        if (driver == null) {
-            throw new IllegalStateException("Driver is NULL. Hooks not executed.");
-        }
-        this.driver =driver;
+    protected WebDriver driver;
+    public baseClass() {
+        // Use centralized driver manager
+        this.driver = DriverManager.getDriver();
         PageFactory.initElements(driver, this);
     }
+
     public void scrollIntoView(WebElement element) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView(true);", element);

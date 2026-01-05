@@ -6,15 +6,19 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.DriverManager;
 
+import java.lang.classfile.instruction.SwitchCase;
 import java.time.Duration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class homePage extends baseClass {
-    public homePage(WebDriver driver)
+    public homePage()
     {
-        super(driver);
+        super();
     }
 
     @FindBy(css = "[aria-label='Motoring']")
@@ -109,10 +113,11 @@ public class homePage extends baseClass {
     }
 
     public void enterPostCode(String postcode) {
+        waitForPageLoad(10);
         postCodeField.sendKeys(postcode);
         waitForPageLoad(10);
         postCodeSuggestion.stream().filter(e -> e.getText()
-                .trim().equalsIgnoreCase(postcode)).findFirst().ifPresent(WebElement::click);
+                .trim().contains(postcode)).findFirst().ifPresent(WebElement::click);
     }
 
     public void clickOnChooseACollectionDayButton() {
@@ -126,10 +131,19 @@ public class homePage extends baseClass {
 
         }
 
+    }
+    public void openingUrl()
+    {
+        DriverManager.getDriver().get("https://storefront:half0rds@dev.halfords.com/");
+    }
 
-//        clickUsingJS(dayFromCalender.get(0));
-//        clickUsingJS(timeSlotFromCalendar.get(0));
-//        selectAppointmentButton.click();
+    public void navigateFromHeader(HashMap<String,String> navigationMenu) {
+        for(Map.Entry<String,String> menu:navigationMenu.entrySet())
+        {
+            System.out.println(menu.getKey());
+            System.out.println(menu.getValue());
+        }
+
 
 
     }
